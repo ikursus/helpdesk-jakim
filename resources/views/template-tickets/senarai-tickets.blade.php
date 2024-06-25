@@ -1,61 +1,43 @@
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+@extends('layouts.induk')
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+@section('page_title')
+<h1 class="mt-4">Tickets</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Senarai Tickets</li>
+</ol>
+@endsection
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+@section('page_content')
+<div class="row">
+    <div class="col-12">
 
-@php
-    $title = '<h1>Senarai Ticket</h1><script>alert("test")</script>';
-@endphp
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TITLE</th>
+                    <th>PENGIRIM</th>
+                    <th>EMAIL</th>
+                </tr>
+            </thead>
 
-{{ $title }}
-{!! $title !!}
+            <tbody>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>TITLE</th>
-            <th>PENGIRIM</th>
-            <th>EMAIL</th>
-        </tr>
-    </thead>
+                {{-- <?php //foreach( $senaraiTickets as $ticket ): ?> --}}
+                @foreach( $senaraiTickets as $ticket )
+                    <tr>
+                        <td>{{ $ticket['id'] }}</td>
+                        <td><?php echo $ticket['title']; ?></td>
+                        <td><?php echo $ticket['submitter_name']; ?></td>
+                        <td><?php echo $ticket['submitter_email']; ?></td>
+                    </tr>
+                @endforeach
+                {{-- <?php //endforeach; ?> --}}
 
-    <tbody>
+            </tbody>
+        </table>
 
-        {{-- <?php //foreach( $senaraiTickets as $ticket ): ?> --}}
-        @foreach( $senaraiTickets as $ticket )
-            <tr>
-                <td>{{ $ticket['id'] }}</td>
-                <td><?php echo $ticket['title']; ?></td>
-                <td><?php echo $ticket['submitter_name']; ?></td>
-                <td><?php echo $ticket['submitter_email']; ?></td>
-            </tr>
-        @endforeach
-        {{-- <?php //endforeach; ?> --}}
+    </div>
 
-
-
-
-
-    </tbody>
-</table>
-
-
-<ul>
-    <li><a href="<?php echo route('home'); ?>">Homepage</a></li>
-    <li><a href="<?php echo route('ticket.semak'); ?>">Semak Tiket</a></li>
-    <li><a href="<?php echo route('ticket.baru'); ?>">Hantar Tiket Baru</a></li>
-</ul>
+</div>
+@endsection
