@@ -16,8 +16,12 @@ tr:nth-child(even) {
 }
 </style>
 
+@php
+    $title = '<h1>Senarai Ticket</h1><script>alert("test")</script>';
+@endphp
 
-<h1>Senarai Ticket</h1>
+{{ $title }}
+{!! $title !!}
 
 <table>
     <thead>
@@ -31,20 +35,27 @@ tr:nth-child(even) {
 
     <tbody>
 
-        <?php foreach( $senaraiTickets as $ticket ): ?>
+        {{-- <?php //foreach( $senaraiTickets as $ticket ): ?> --}}
+        @foreach( $senaraiTickets as $ticket )
             <tr>
-                <td><?php echo $ticket['id']; ?></td>
+                <td>{{ $ticket['id'] }}</td>
                 <td><?php echo $ticket['title']; ?></td>
                 <td><?php echo $ticket['submitter_name']; ?></td>
                 <td><?php echo $ticket['submitter_email']; ?></td>
             </tr>
-        <?php endforeach; ?>
+        @endforeach
+        {{-- <?php //endforeach; ?> --}}
+
+
+
+
 
     </tbody>
 </table>
 
 
 <ul>
+    <li><a href="<?php echo route('home'); ?>">Homepage</a></li>
     <li><a href="<?php echo route('ticket.semak'); ?>">Semak Tiket</a></li>
     <li><a href="<?php echo route('ticket.baru'); ?>">Hantar Tiket Baru</a></li>
 </ul>
