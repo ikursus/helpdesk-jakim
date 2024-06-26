@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TicketController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -10,6 +11,10 @@ Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.list');
 Route::get('/ticket/semak', [TicketController::class, 'semakTicket'])->name('ticket.semak');
 Route::get('/tiket/baru', [TicketController::class, 'create'])->name('ticket.baru');
 Route::post('/tiket/baru', [TicketController::class, 'store'])->name('ticket.store');
+
+// Route untuk memaparkan senarai users
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 
 
 Route::get('/faq', function () {
