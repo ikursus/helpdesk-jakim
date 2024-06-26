@@ -42,9 +42,17 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        //$data = $request->all();
+        // $data = $request->input('submitter_name'); // $request->submitter_name;
+        // $data = $request->only('submitter_name', 'submitter_email');
+        $data = $request->except('submitter_name');
+        // Untuk semak ada file attach
+        // $request->hasFile('attachment')
+        // $request->filled('submitter_name')
+        // $request->file('attachment')
 
-        return $data;
+        // Dump and Die
+        dd($data);
     }
 
     /**
