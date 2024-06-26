@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TicketRequest;
 
 class TicketController extends Controller
 {
@@ -40,12 +41,23 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(TicketRequest $request)
     public function store(Request $request)
     {
-        //$data = $request->all();
+        // $data = $request->validated();
+        // Validate input
+        $data = $request->validate([
+            'submitter_name' => 'required|min:3|string',
+            'submitter_email' => ['required', 'email:filter'],
+            'title' => ['required', 'min:5', 'string'],
+            'content' => ['nullable', 'sometimes', 'min:5'],
+            'category' => ['required', 'in:general,sales,technical']
+        ]);
+
+        // $data = $request->all();
         // $data = $request->input('submitter_name'); // $request->submitter_name;
         // $data = $request->only('submitter_name', 'submitter_email');
-        $data = $request->except('submitter_name');
+        // $data = $request->except('submitter_name');
         // Untuk semak ada file attach
         // $request->hasFile('attachment')
         // $request->filled('submitter_name')

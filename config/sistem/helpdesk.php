@@ -9,5 +9,10 @@ return [
         'pending' => 'Pending',
         'active' => 'Active',
         'terminated' => 'Terminated'
+    ],
+    'category' => [
+        'general' => 'General',
+        'sales' => 'Sales',
+        'technical' => 'Technical'
     ]
 ];

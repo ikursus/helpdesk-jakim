@@ -20,24 +20,51 @@
         <div class="card">
             <div class="card-body">
 
+                @include('layouts.alerts')
+
                 <div class="mb-3">
                     <label class="form-label">Submitter Name</label>
-                    <input type="text" class="form-control" name="submitter_name" placeholder="Nama Anda">
+                    <input type="text" class="form-control" name="submitter_name" placeholder="Nama Anda" value="{{ old('submitter_name') }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Submitter Email</label>
-                    <input type="email" class="form-control" name="submitter_email" placeholder="name@example.com">
+
+                    <input type="email"
+                    class="form-control @error('submitter_email') is-invalid @enderror"
+                    name="submitter_email"
+                    placeholder="name@example.com"
+                    value="{{ old('submitter_email') }}">
+
+                    @error('submitter_email')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Kategori</label>
+                    <select name="category" class="form-control">
+
+                        <option value="">-- Sila Pilih --</option>
+
+                        @foreach (config('sistem.helpdesk.category') as $key => $value)
+                        <option value="{{ $key }}" {{ old('category') == $key ? 'selected="selected"' : NULL }}>{{ $value }}</option>
+                        @endforeach
+
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Subject/Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Tajuk Soalan">
+                    <input type="text" class="form-control" name="title" placeholder="Tajuk Soalan" value="{{ old('title') }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Pesanan/Mesej</label>
-                    <textarea class="form-control" name="content" rows="3"></textarea>
+                    <textarea class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
                 </div>
 
             </div>
