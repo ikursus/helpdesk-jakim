@@ -42,7 +42,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -77,8 +77,12 @@ class TicketController extends Controller
         //
     }
 
-    public function semakTicket()
+    public function semakTicket(Request $request)
     {
+        $id = $request->input('username');
+
+        return $id;
+
         return view('template-tickets.semak-tickets');
     }
 }
