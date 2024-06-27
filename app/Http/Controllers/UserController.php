@@ -22,16 +22,23 @@ class UserController extends Controller
         // ->orderBy('id', 'desc')
         // ->paginate(5);
 
+        // Preparekan statement query untuk dapatkan user dan sorting latest record di atas sekali
         $query = DB::table('users')->orderBy('id', 'desc');
 
+        // Semak JIKA ada status, maka tambah extra query untuk dapatkan status users
         if ($request->filled('status'))
         {
             $query->where('status', '=', $request->status);
         };
 
+        // Buat pagination
         $senaraiUsers = $query->paginate(3);
+
+        // Jika ada additional parameter, appends kan parameter tersebut
+        // supaya apabila pagination berlaku, parameter dibawa kepada setiap page
         $senaraiUsers->appends(['status' => $request->status]);
 
+        // Jika tiada masalah, paparkan template senarai users
         return view('template-users.senarai-users', compact('senaraiUsers'));
     }
 
