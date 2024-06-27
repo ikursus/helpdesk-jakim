@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -32,7 +33,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate data daripada borang
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email:filter',
+            'password' => [
+                'required', 'confirmed', Password::min(3)
+                // ->letters()
+                // ->mixedCase()
+                // ->numbers()
+                // ->symbols()
+                // ->uncompromised()
+            ],
+            'phone' => 'nullable|sometimes',
+            'status' => 'required'
+        ]);
+
+        // dd($data);
+        // Jika tiada masalah dengan validation
+        // Encrypt password dahulu
+        $data['password'] = bcrypt($request->input('password'));
+
+        // Simpan data ke dalam table users
+        DB::table('users')->insert($data);
+
+        // Jika tiada masalah dengan kemasukan data,
+        // Redirect ke halaman senarai users.
+        return redirect()->route('users.index');
     }
 
     /**
