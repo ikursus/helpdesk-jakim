@@ -29,11 +29,11 @@
                 @foreach( $senaraiTickets as $ticket )
                     <tr>
                         <td>{{ $ticket->id }}</td>
-                        <td><?php echo $ticket->title; ?></td>
-                        <td><?php echo $ticket->submitter_name; ?></td>
-                        <td><?php echo $ticket->submitter_email; ?></td>
-                        <td></td>
-                        <td><?php echo $ticket->category; ?></td>
+                        <td>{{ $ticket->title }}</td>
+                        <td>{{ $ticket->submitter_name }}</td>
+                        <td>{{ $ticket->submitter_email }}</td>
+                        <td>{{ $ticket->getUser->phone }}</td>
+                        <td>{{ $ticket->category }}</td>
                     </tr>
                 @endforeach
                 {{-- <?php //endforeach; ?> --}}

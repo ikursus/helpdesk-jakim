@@ -24,6 +24,8 @@ Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edi
 Route::patch('/users/{id}/edit', [UserController::class, 'update'])->name('users.update');
 // Route untuk menghapuskan data
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// Route untuk menghapuskan data
+Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
 
 

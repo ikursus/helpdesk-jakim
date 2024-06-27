@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TicketRequest;
@@ -13,7 +15,13 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $senaraiTickets = DB::table('tickets')->get();
+        //$senaraiTickets = DB::table('tickets')->get();
+        // Join table menggunakan kaedah query builder
+        // $senaraiTickets = DB::table('tickets')
+        // ->join('users', 'tickets.user_id', '=', 'users.id')
+        // ->select('tickets.*', 'users.phone as submitter_phone')
+        // ->get();
+        $senaraiTickets = Ticket::with('getUser')->get();
 
         // Cara 1 attach/passing data ke view
         // return view('template-tickets.senarai-tickets')->with('senaraiTickets', $senaraiTickets);
@@ -59,7 +67,19 @@ class TicketController extends Controller
         $data['submitter_email'] = $user->email;
 
         // Simpan data ke dalam table tickets
-        DB::table('tickets')->insert($data);
+        // DB::table('tickets')->insert($data);
+        // Cara 1 Simpan Data Menggunakan Model
+        // $ticket = new Ticket;
+        // $ticket->title = $data['title'];
+        // $ticket->content = $data['content'];
+        // $ticket->category = $data['category'];
+        // $ticket->user_id = $data['user_id'];
+        // $ticket->submitter_name = $data['submitter_name'];
+        // $ticket->submitter_email = $data['submitter_email'];
+        // $ticket->save();
+
+        // Cara 2
+        Ticket::create($data);
 
         toast('Rekod berjaya disimpan!', 'success');
 
@@ -86,9 +106,24 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // $data = $request->validated();
+        // Validate input
+        $data = $request->validate([
+            // 'submitter_name' => 'required|min:3|string',
+            // 'submitter_email' => ['required', 'email:filter'],
+            'title' => ['required', 'min:5', 'string'],
+            'content' => ['nullable', 'sometimes', 'min:5'],
+            'category' => ['required', 'in:general,sales,technical']
+        ]);
+        // Teknik find id
+        $ticket = Ticket::find($id);
+        $ticket->update($data);
+
+        toast('Rekod berjaya disimpan!', 'success');
+
+        return redirect()->route('ticket.list');
     }
 
     /**
@@ -96,7 +131,13 @@ class TicketController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Penggunaan find() atau findOrFail() hanya untuk id / primary_key
+        $ticket = Ticket::findOrFail($id);
+        $ticket->delete();
+
+        toast('Rekod berjaya dihapuskan!', 'success');
+
+        return redirect()->route('ticket.list');
     }
 
     public function semakTicket(Request $request)
