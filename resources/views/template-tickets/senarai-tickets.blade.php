@@ -16,8 +16,10 @@
                 <tr>
                     <th>ID</th>
                     <th>TITLE</th>
-                    <th>PENGIRIM</th>
-                    <th>EMAIL</th>
+                    <th>SUBMITTER NAME</th>
+                    <th>SUBMITTER EMAIL</th>
+                    <th>SUBMITTER PHONE</th>
+                    <th>CATEGORY</th>
                 </tr>
             </thead>
 
@@ -26,10 +28,12 @@
                 {{-- <?php //foreach( $senaraiTickets as $ticket ): ?> --}}
                 @foreach( $senaraiTickets as $ticket )
                     <tr>
-                        <td>{{ $ticket['id'] }}</td>
-                        <td><?php echo $ticket['title']; ?></td>
-                        <td><?php echo $ticket['submitter_name']; ?></td>
-                        <td><?php echo $ticket['submitter_email']; ?></td>
+                        <td>{{ $ticket->id }}</td>
+                        <td><?php echo $ticket->title; ?></td>
+                        <td><?php echo $ticket->submitter_name; ?></td>
+                        <td><?php echo $ticket->submitter_email; ?></td>
+                        <td></td>
+                        <td><?php echo $ticket->category; ?></td>
                     </tr>
                 @endforeach
                 {{-- <?php //endforeach; ?> --}}
