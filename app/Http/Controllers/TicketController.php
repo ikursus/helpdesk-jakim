@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TicketRequest;
 
 class TicketController extends Controller
@@ -47,24 +48,29 @@ class TicketController extends Controller
         // $data = $request->validated();
         // Validate input
         $data = $request->validate([
-            'submitter_name' => 'required|min:3|string',
-            'submitter_email' => ['required', 'email:filter'],
+            // 'submitter_name' => 'required|min:3|string',
+            // 'submitter_email' => ['required', 'email:filter'],
             'title' => ['required', 'min:5', 'string'],
             'content' => ['nullable', 'sometimes', 'min:5'],
             'category' => ['required', 'in:general,sales,technical']
         ]);
 
-        // $data = $request->all();
-        // $data = $request->input('submitter_name'); // $request->submitter_name;
-        // $data = $request->only('submitter_name', 'submitter_email');
-        // $data = $request->except('submitter_name');
-        // Untuk semak ada file attach
-        // $request->hasFile('attachment')
-        // $request->filled('submitter_name')
-        // $request->file('attachment')
+        // Dapatkan data user_id daripada session user yang tengah login dalam sistem
+        // Buat masa ni kita dapatkan random user daripada table users
+        $user = DB::table('users')->inRandomOrder()->first();
+        // Attachkan data yang diperlukan oleh table tickets kepada variable $data untuk disimpan
+        // ke dalam table tickets
+        $data['user_id'] = $user->id;
+        $data['submitter_name'] = $user->name;
+        $data['submitter_email'] = $user->email;
 
-        // Dump and Die
-        dd($data);
+        // Simpan data ke dalam table tickets
+        DB::table('tickets')->insert($data);
+
+        toast('Rekod berjaya disimpan!', 'success');
+
+        return redirect()->route('ticket.list');
+
     }
 
     /**

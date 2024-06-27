@@ -26,6 +26,8 @@ Route::patch('/users/{id}/edit', [UserController::class, 'update'])->name('users
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
+
+
 Route::get('/faq', function () {
 
     return view('template-tickets.soalan-lazim');

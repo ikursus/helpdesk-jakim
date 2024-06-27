@@ -158,5 +158,6 @@ class UserController extends Controller
         // Jika tiada masalah, redirect user ke halaman senarai users
         // Sertakan sekali flash messaging untuk ayat notifikasi
         return redirect()->route('users.index')->with('alert-berjaya', 'Rekod Berjaya Dihapuskan!');
+
     }
 }

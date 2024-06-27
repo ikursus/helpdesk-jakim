@@ -22,12 +22,12 @@
 
                 @include('layouts.alerts')
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Submitter Name</label>
                     <input type="text" class="form-control" name="submitter_name" placeholder="Nama Anda" value="{{ old('submitter_name') }}">
-                </div>
+                </div> --}}
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Submitter Email</label>
 
                     <input type="email"
@@ -42,7 +42,7 @@
                     </div>
                     @enderror
 
-                </div>
+                </div> --}}
 
                 <div class="mb-3">
                     <label class="form-label">Kategori</label>
