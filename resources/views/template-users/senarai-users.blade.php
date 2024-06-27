@@ -40,8 +40,7 @@
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
 
 
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $user->id }}">Hapus</button>
-
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $user->id }}">Hapus</button>
 
                             <!-- Modal -->
                             <div class="modal fade" id="modal-delete-{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

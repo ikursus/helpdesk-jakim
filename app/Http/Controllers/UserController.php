@@ -149,6 +149,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        // Cari user berdasarkan ID untuk dihapuskan
         DB::table('users')->where('id', '=', $id)->delete();
         // Sweetalert package
         toast('Rekod Berjaya Dihapuskan!','success');
