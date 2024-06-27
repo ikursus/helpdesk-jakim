@@ -97,7 +97,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Ambil data user berdasarkan id
+        $user = DB::table('users')->where('id', $id)->first();
+
+        // Paparkan borang kemaskini / edit rekod user
+        return view('template-users.borang-user-edit', compact('user'));
     }
 
     /**

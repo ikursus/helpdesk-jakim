@@ -18,6 +18,11 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 // Route untuk menyimpan data yang dihantar daripada borang tambah user baru
 Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+// Route untuk memaparkan borang edit user
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+// Route untuk menyimpan data yang dihantar daripada borang edit user
+Route::patch('/users/{id}/edit', [UserController::class, 'update'])->name('users.update');
+
 
 
 Route::get('/faq', function () {

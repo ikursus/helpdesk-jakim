@@ -35,7 +35,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->status }}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                 @endforeach
