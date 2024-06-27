@@ -14,7 +14,10 @@ Route::post('/tiket/baru', [TicketController::class, 'store'])->name('ticket.sto
 
 // Route untuk memaparkan senarai users
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
+// Route untuk memaparkan borang tambah user baru
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+// Route untuk menyimpan data yang dihantar daripada borang tambah user baru
+Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
 
 
 Route::get('/faq', function () {

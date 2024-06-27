@@ -43,7 +43,5 @@
 @endsection
 
 @push('js_additional')
-<script>
-    alert('Selamat Datang');
-</script>
+
 @endpush
