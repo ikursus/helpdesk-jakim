@@ -11,12 +11,17 @@
 <div class="row">
     <div class="col-12">
 
+        <a href="{{ route('users.index') }}?status=active" class="btn btn-success">Aktif</a>
+        <a href="{{ route('users.index') }}?status=pending" class="btn btn-primary">Pending</a>
+        <a href="{{ route('users.index') }}?status=terminated" class="btn btn-danger">Terminated</a>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>NAMA</th>
                     <th>EMAIL</th>
+                    <th>STATUS</th>
                     <th>TINDAKAN</th>
                 </tr>
             </thead>
@@ -28,6 +33,7 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->status }}</td>
                         <td>
                             <a href="#" class="btn btn-primary">Edit</a>
                         </td>
@@ -36,6 +42,8 @@
 
             </tbody>
         </table>
+
+        {{ $senaraiUsers->links() }}
 
     </div>
 

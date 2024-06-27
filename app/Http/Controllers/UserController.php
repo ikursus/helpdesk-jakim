@@ -11,11 +11,26 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Dapatkan senarai users
         // SELECT * FROM users
-        $senaraiUsers = DB::table('users')->get();
+        // $senaraiUsers = DB::table('users')->orderBy('id', 'desc')->get();
+        // $senaraiUsers = DB::table('users')->latest('id')->get();
+        // $senaraiUsers = DB::table('users')
+        // ->where('status', '=', $request->status)
+        // ->orderBy('id', 'desc')
+        // ->paginate(5);
+
+        $query = DB::table('users')->orderBy('id', 'desc');
+
+        if ($request->filled('status'))
+        {
+            $query->where('status', '=', $request->status);
+        };
+
+        $senaraiUsers = $query->paginate(3);
+        $senaraiUsers->appends(['status' => $request->status]);
 
         return view('template-users.senarai-users', compact('senaraiUsers'));
     }
