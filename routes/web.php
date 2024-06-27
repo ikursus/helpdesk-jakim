@@ -22,6 +22,8 @@ Route::post('/users/create', [UserController::class, 'store'])->name('users.stor
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 // Route untuk menyimpan data yang dihantar daripada borang edit user
 Route::patch('/users/{id}/edit', [UserController::class, 'update'])->name('users.update');
+// Route untuk menghapuskan data
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 

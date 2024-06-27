@@ -50,6 +50,9 @@
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
+                    <span class="text-primary">
+                        <small>Biarkan kosong jika tidak mahu tukar password</small>
+                    </span>
                 </div>
 
                 <div class="mb-3">

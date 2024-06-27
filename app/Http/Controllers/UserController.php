@@ -58,7 +58,7 @@ class UserController extends Controller
         // Validate data daripada borang
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email:filter',
+            'email' => 'required|email:filter|unique:users,email',
             'password' => [
                 'required', 'confirmed', Password::min(3)
                 // ->letters()
@@ -111,7 +111,37 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate data daripada borang
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email:filter|unique:users,email,' . $id,
+            'phone' => 'nullable|sometimes',
+            'status' => 'required'
+        ]);
+
+        // Semak jika ruangan password diisi,
+        // maka buat validasi dan kemudian encrypt data
+        if ($request->filled('password'))
+        {
+            $request->validate([
+                'password'=> [
+                    'confirmed', Password::min(3)
+                ],
+            ]);
+            // Sisip/Attachkan data password kepada $variable $data
+            $data['password'] = bcrypt($request->input('password'));
+        }
+
+        // Kemaskini rekod user dengan data baru
+        DB::table('users')->where('id', '=', $id)->update($data);
+
+        // Sweetalert package
+        toast('Rekod Berjaya Dikemaskini!','success');
+        // alert()->success('Berjaya', 'Rekod Berjaya Dikemaskini!');
+
+        // Jika tiada masalah, redirect user ke halaman senarai users
+        // Sertakan sekali flash messaging untuk ayat notifikasi
+        return redirect()->route('users.index')->with('alert-berjaya', 'Rekod Berjaya Dikemaskini!');
     }
 
     /**
@@ -119,6 +149,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('users')->where('id', '=', $id)->delete();
+        // Sweetalert package
+        toast('Rekod Berjaya Dihapuskan!','success');
+        // alert()->success('Berjaya', 'Rekod Berjaya Dikemaskini!');
+
+        // Jika tiada masalah, redirect user ke halaman senarai users
+        // Sertakan sekali flash messaging untuk ayat notifikasi
+        return redirect()->route('users.index')->with('alert-berjaya', 'Rekod Berjaya Dihapuskan!');
     }
 }
