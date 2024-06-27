@@ -101,7 +101,9 @@ class UserController extends Controller
         $user = DB::table('users')->where('id', $id)->first();
 
         // Paparkan borang kemaskini / edit rekod user
-        return view('template-users.borang-user-edit', compact('user'));
+        //return view('template-users.borang-user-edit', compact('user'));
+        return view('template-users.borang-user-edit', ['user' => $user]);
+        //return view('template-users.borang-user-edit')->with('user', $user);
     }
 
     /**
